@@ -28,14 +28,15 @@ jobs:
     steps:
       - name: Create comment with API
         run: |
-          gh api -X POST \
-            repo/${{ env.ORGANIZATION }}/${{ env.REPOSITORY }}/issues/${{ env.ISSUE_NUMBER }}/comments \
-            -f body="Comment but from the API call not action"
-            
+          gh api \
+            -X POST \
+            /repos/${{ env.ORGANIZATION }}/${{ env.REPOSITORY }}/issues/${{ env.ISSUE_NUMBER }}/comments \
+            -f body='Comment but from the API call not action'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          ORGANIZATION: ${{ github.event.organisation.login }}
+          ORGANIZATION: ${{ github.repository_owner }}
           REPOSITORY: ${{ github.event.repository.name }}
-          ISSUE_NUMBER: ${{ github.event.issue.number }} 
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+ 
     
         
